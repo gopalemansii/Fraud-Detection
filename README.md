@@ -1,4 +1,4 @@
-# 💳 Credit Card Fraud Detection System
+# 💳 PaySim Fraud Detection System
 ### Handling Highly Imbalanced Data with Machine Learning
 
 ---
