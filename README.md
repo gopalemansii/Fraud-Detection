@@ -5,12 +5,12 @@
 
 ## 🚀 Project Overview
 
-This project builds a robust machine learning pipeline to detect fraudulent credit card transactions using a **highly imbalanced real-world dataset**.
+This project builds a robust machine learning pipeline to detect fraudulent mobile money transactions using the **PaySim dataset**, which simulates real-world financial transaction behavior.
 
 Fraud detection is a critical financial security problem where:
 
-- Fraud cases are extremely rare (~0.17%)
-- Missing a fraud (False Negative) leads to financial loss
+- Fraud cases are extremely rare (highly imbalanced dataset)
+- Missing a fraud (False Negative) leads to direct financial loss
 - High false positives harm customer experience
 - Accuracy alone is misleading
 
@@ -20,7 +20,7 @@ This project focuses on **cost-sensitive learning**, **class imbalance handling*
 
 ## 🎯 Business Problem
 
-Financial institutions process millions of transactions daily. Even a small fraud detection failure rate can lead to significant losses.
+Digital payment platforms process millions of transactions daily. Even a small fraud detection failure rate can lead to significant losses.
 
 The goal is to:
 
@@ -33,28 +33,42 @@ The goal is to:
 
 ## 📊 Dataset Information
 
-**Dataset:** Credit Card Fraud Detection (Kaggle)
+**Dataset:** PaySim Mobile Money Fraud Detection Dataset (Kaggle)
 
-- 284,807 transactions
-- 30 features
-  - V1–V28 (PCA-transformed features)
-  - Time
-  - Amount
-  - Class (Target)
+PaySim is a synthetic dataset generated using real-world mobile money transaction patterns.
+
+- ~6.3 million transactions
+- 11 features
+- Transaction types include:
+  - CASH_IN
+  - CASH_OUT
+  - TRANSFER
+  - PAYMENT
+  - DEBIT
 
 Target variable:
 
 - `0` → Legitimate
 - `1` → Fraud
 
-### Class Distribution
+### Key Features
 
-| Class       | Count   | Percentage |
-|------------|---------|------------|
-| Legitimate | 284,315 | 99.83%     |
-| Fraud      | 492     | 0.17%      |
+- `type` → Transaction type  
+- `amount` → Transaction amount  
+- `oldbalanceOrg` → Sender balance before transaction  
+- `newbalanceOrig` → Sender balance after transaction  
+- `oldbalanceDest` → Receiver balance before transaction  
+- `newbalanceDest` → Receiver balance after transaction  
+- `isFraud` → Fraud label (Target)  
+- `isFlaggedFraud` → System flagged fraud indicator  
 
-This represents an **extremely imbalanced classification problem**.
+---
+
+## ⚠️ Class Imbalance Challenge
+
+Fraud transactions represent a very small percentage of the dataset, making it a **highly imbalanced classification problem**.
+
+This imbalance causes models to become biased toward predicting legitimate transactions.
 
 ---
 
@@ -62,7 +76,7 @@ This represents an **extremely imbalanced classification problem**.
 
 If a model predicts all transactions as legitimate:
 
-- Accuracy = 99.83%
+- Accuracy will still be extremely high
 - Fraud detection rate = 0%
 
 Therefore, this project evaluates models using:
@@ -81,10 +95,11 @@ Therefore, this project evaluates models using:
 ### 1️⃣ Data Preprocessing
 
 - Checked for missing values
-- Standardized `Amount` feature using StandardScaler
+- Encoded categorical feature `type`
+- Standardized `amount` feature using StandardScaler
 - Stratified train-test split
-- Feature engineering (if applicable)
-- No data leakage ensured
+- Feature engineering (balance difference errors)
+- Ensured no data leakage
 
 ---
 
@@ -138,6 +153,7 @@ Best performing model:
 - Balanced Precision-Recall tradeoff
 - Reduced False Negatives significantly
 
+---
 
 ## 📊 Business Impact Perspective
 
@@ -152,9 +168,8 @@ This project prioritizes reducing False Negatives while controlling False Positi
 
 ## 📂 Project Structure
 
-
 ```text
-fraud-detection/
+paysim-fraud-detection/
 ├── data/
 │   ├── raw/                      # Original dataset
 │   └── processed/                # Cleaned & transformed data
@@ -173,7 +188,9 @@ fraud-detection/
 │   └── performance_metrics.png
 ├── requirements.txt
 └── README.md
-```
+
+## 📂 Project Structure
+
 
 ## 🛠 Tech Stack
 
