@@ -2,6 +2,7 @@
 ### Handling Highly Imbalanced Data with Machine Learning
 
 ---
+📌 **Open in Colab:** click here -> (https://colab.research.google.com/drive/1UG1PN7Vif0MrHltRB4QlFxHe7w2gMqNz?usp=sharing)
 
 ## 🚀 Project Overview
 
